@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/Selected"
+        android:title="@string/selected"/>
+
+    <item
+        android:id="@+id/clasic"
+        android:title="@string/clasic"/>
+
+    <item
+        android:id="@+id/multiple"
+        android:title="@string/multiple_choice"/>
+
+</menu>

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "853124661467",
+    "firebase_url": "https://makesurvey-3bbf0.firebaseio.com",
+    "project_id": "makesurvey-3bbf0",
+    "storage_bucket": "makesurvey-3bbf0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:853124661467:android:ea868a617d2d687fd80cfe",
+        "android_client_info": {
+          "package_name": "com.israf.makesurvey"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "853124661467-8ir8jcovo98iim2tp3l6pc0e3l4jcja1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCK9qpdpVEua_1TxN_slb_xLd4fOgGq-tg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "853124661467-8ir8jcovo98iim2tp3l6pc0e3l4jcja1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
