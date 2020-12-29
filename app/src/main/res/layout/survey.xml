@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-    <TextView
-        android:id="@+id/surveyname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:layout_margin="5dp"
-        ></TextView>
-    <TextView
-        android:id="@+id/number"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"></TextView></LinearLayout>
+
+        <TextView
+            android:id="@+id/surveyname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:layout_margin="5dp" />
+
+        <TextView
+            android:id="@+id/number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp" /></LinearLayout>
  <LinearLayout
      android:layout_width="match_parent"
      android:layout_height="wrap_content"
@@ -31,35 +32,23 @@
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:text="Result"
-         android:textSize="10dp" />
+         android:textSize="12sp" />
 
      <Button
          android:id="@+id/listdelete"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:text="Delete"
-         android:textSize="10sp"
-         android:layout_marginLeft="40dp"/>
+         android:textSize="12sp"
+         android:layout_marginLeft="10dp"/>
+     <Button
+     android:id="@+id/listpublishlink"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:text="Publish Link"
+         android:layout_marginLeft="10dp"
+     android:textSize="12sp" />
  </LinearLayout>
-<LinearLayout
 
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingLeft="30dp">
-     <Button
-         android:id="@+id/listpublishlink"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:text="Publish Link"
-         android:textSize="10dp" />
-     <Button
-         android:id="@+id/listeditlink"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:text="Edit link"
-         android:textSize="10dp"
-         android:layout_marginLeft="40dp"
-        ></Button>
-</LinearLayout>
 
 </LinearLayout>

@@ -187,6 +187,7 @@ for (int a=0; a<QuestionNumber;a++){
         toolbar= findViewById(R.id.Resulttoolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(SurveyName);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
     }

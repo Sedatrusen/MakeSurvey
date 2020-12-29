@@ -194,14 +194,9 @@ public class MakeSurvey extends Fragment {
             }
         });
     }
-    public static final String APP_SCRIPT_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbycd3bzRnJCnOQpYN2vbkIi92KURottGxQm79NIBJQ7vadN3kM/exec";
+    public static final String APP_SCRIPT_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyilIt7C-JSR3unh0HLXaQU66jzFvHbRrJhttfs0l5XHtUOgF4/exec";
     public static final String ADD_USER_URL = APP_SCRIPT_WEB_APP_URL;
-    public static final String LIST_USER_URL = APP_SCRIPT_WEB_APP_URL+"?action=readAll";
 
-    public static final String KEY_ID = "uId";
-    public static final String KEY_NAME = "uName";
-    public static final String KEY_IMAGE = "uImage";
-    public  static final String KEY_ACTION = "action";
     private  void  deneme (View v){
         final ProgressDialog loading = ProgressDialog.show(v.getContext(),"Uploading...","Please wait...",false,false);
         StringRequest stringRequest = new StringRequest(Request.Method.POST,ADD_USER_URL,
@@ -213,7 +208,7 @@ public class MakeSurvey extends Fragment {
                       ArrayList<String> a=new ArrayList<>();
                       a.add(words[0]);
                       a.add(words[2]);
-                        mDatabase.child("SurveyLink").child(SurveyName.getText().toString()).setValue(a);
+                        mDatabase.child("SurveyLink").child(auth.getCurrentUser().getUid()).child(SurveyName.getText().toString()).setValue(a);
                         Toast.makeText(v.getContext(),response,Toast.LENGTH_LONG).show();
                         Log.i("sedat",response);
                     }
@@ -228,6 +223,7 @@ public class MakeSurvey extends Fragment {
             protected Map<String,String> getParams(){
                 Map<String,String> params = new HashMap<String, String>();
                 params.put("SurveyName",SurveyName.getText().toString());
+                params.put("UserId",auth.getCurrentUser().getUid());
                 String data = new Gson().toJson(Survey);
                 params.put("Survey", data);
                 return params;

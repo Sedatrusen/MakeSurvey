@@ -64,7 +64,7 @@ ArrayList<String> link =new ArrayList<String>();
         Button   delete = satir.findViewById(R.id.listdelete);
         Button result = satir.findViewById(R.id.ResultButton);
         Button publish = satir.findViewById(R.id.listpublishlink);
-        Button edit = satir.findViewById(R.id.listeditlink);
+
 
         DatabaseReference dbRef=  mDatabase.child("AnswerofSurveys").child(user.getUid()).child(surveys.getName());
         dbRef.addValueEventListener(new ValueEventListener() {
@@ -83,16 +83,16 @@ ArrayList<String> link =new ArrayList<String>();
 
             }
         });
-        DatabaseReference dbRef2=  mDatabase.child("SurveyLink").child(surveys.getName());
+        DatabaseReference dbRef2=  mDatabase.child("SurveyLink").child(user.getUid()).child(surveys.getName());
         dbRef2.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.getChildrenCount()==0){
                     publish.setEnabled(false);
-                    edit.setEnabled(false);
+
                 }else {
                     publish.setEnabled(true);
-                    edit.setEnabled(true);
+
                 }
 
                 for (DataSnapshot ds :snapshot.getChildren()){
@@ -146,13 +146,7 @@ ArrayList<String> link =new ArrayList<String>();
             }
         });
 
-       edit.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               setClipboard(v.getContext(),link.get(0));
-             Toast.makeText(v.getContext(), "Copied the link", Toast.LENGTH_LONG).show();
-           }
-       });
+
         return satir;
     }
     private void setClipboard(Context context, String text) {

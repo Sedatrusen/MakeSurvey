@@ -12,10 +12,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" android:id="@+id/addsurvey"
-        android:orientation="vertical"></LinearLayout>
+        android:layout_height="wrap_content"
+        android:id="@+id/addsurvey"
+        android:orientation="vertical" />
    <LinearLayout
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
@@ -32,13 +34,13 @@
            android:layout_weight="0.7"
 
         />
+
        <Button
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:text="Save All"
            android:id="@+id/buttonSave"
-           android:layout_weight="1"
-           ></Button>
+           android:layout_weight="1" />
    </LinearLayout>
 </LinearLayout>
 

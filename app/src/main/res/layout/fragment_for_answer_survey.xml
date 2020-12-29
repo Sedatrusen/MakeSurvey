@@ -6,7 +6,8 @@
     tools:context=".ui.main.Surveylist">
 
     <ListView
+        android:paddingBottom="?attr/actionBarSize"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/AnswerListView"></ListView>
+        android:id="@+id/AnswerListView" />
 </FrameLayout>

@@ -41,6 +41,9 @@
         <activity
             android:name=".ui.main.Result"
             android:parentActivityName=".MainActivity" />
+
+
+
         <service
             android:name=".Bildirim.MyFirebaseMessagingService">
             <intent-filter>
