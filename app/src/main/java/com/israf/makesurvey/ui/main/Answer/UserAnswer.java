@@ -120,7 +120,7 @@ private String result;
 for (int i=0;i<Survey.size();i++)
 {
     String question=Survey.get(i).getQuestion();
-    if  (Survey.get(i).getId()==0 ||  Survey.get(i).getId()==2){
+    if  (Survey.get(i).getId()==0 ){
                         View v = inflater.inflate(R.layout.selectedq, linearLayout, false);
                         TextView t = v.findViewById(R.id.selectedQuestion);
 
@@ -129,13 +129,13 @@ for (int i=0;i<Survey.size();i++)
     CheckBox a3 = v.findViewById(R.id.surveyanswer3);
     CheckBox a4 = v.findViewById(R.id.surveyanswer4);
 if (Survey.get(i).getAnswer1().isEmpty()){
-    a1.setVisibility(v.GONE);
+    a1.setVisibility(View.GONE);
 }if (Survey.get(i).getAnswer2().isEmpty()){
-        a2.setVisibility(v.GONE);
+        a2.setVisibility(View.GONE);
     }if (Survey.get(i).getAnswer3().isEmpty()){
-        a3.setVisibility(v.GONE);
+        a3.setVisibility(View.GONE);
     }if (Survey.get(i).getAnswer4().isEmpty()){
-        a4.setVisibility(v.GONE);
+        a4.setVisibility(View.GONE);
     }
     a1.setText(Survey.get(i).getAnswer1().toString());
     a2.setText(Survey.get(i).getAnswer2().toString());
@@ -155,6 +155,7 @@ if (Survey.get(i).getAnswer1().isEmpty()){
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
               if(isChecked){
+
                   Ans1[0] ="true";
             SurveyAnswer   se =new SurveyAnswer(question, Ans1[0], Ans2[0], Ans3[0], Ans4[0],0);
             if (Answer.size()> finalI1){
@@ -227,7 +228,139 @@ if (Survey.get(i).getAnswer1().isEmpty()){
 
 
                     }
+    if  (  Survey.get(i).getId()==2){
+        View v = inflater.inflate(R.layout.selectedq, linearLayout, false);
+        TextView t = v.findViewById(R.id.selectedQuestion);
 
+        CheckBox a1 = v.findViewById(R.id.surveyanswer1);
+        CheckBox a2 = v.findViewById(R.id.surveyanswer2);
+        CheckBox a3 = v.findViewById(R.id.surveyanswer3);
+        CheckBox a4 = v.findViewById(R.id.surveyanswer4);
+        if (Survey.get(i).getAnswer1().isEmpty()){
+            a1.setVisibility(View.GONE);
+        }if (Survey.get(i).getAnswer2().isEmpty()){
+            a2.setVisibility(View.GONE);
+        }if (Survey.get(i).getAnswer3().isEmpty()){
+            a3.setVisibility(View.GONE);
+        }if (Survey.get(i).getAnswer4().isEmpty()){
+            a4.setVisibility(View.GONE);
+        }
+        a1.setText(Survey.get(i).getAnswer1().toString());
+        a2.setText(Survey.get(i).getAnswer2().toString());
+        a3.setText(Survey.get(i).getAnswer3().toString());
+        a4.setText(Survey.get(i).getAnswer4().toString());
+
+        final String[] Ans1 = {"false"};
+        final String[] Ans2 = {"false"};
+        final String[] Ans3 = {"false"};
+        final String[] Ans4 = {"false"};
+        int finalI1 = i;
+        SurveyAnswer   se =new SurveyAnswer(question, Ans1[0], Ans2[0], Ans3[0], Ans4[0],0);
+        Answer.add(0,se);
+
+        a1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if(isChecked){
+                    a2.setClickable(false);
+                    a3.setClickable(false);
+                    a4.setClickable(false);
+
+                    Ans1[0] ="true";
+                    SurveyAnswer   se =new SurveyAnswer(question, Ans1[0], Ans2[0], Ans3[0], Ans4[0],0);
+                    if (Answer.size()> finalI1){
+                        Answer.remove(finalI1);}
+
+                    Answer.add(finalI1,se);
+                } else {
+                    a2.setClickable(true);
+                    a3.setClickable(true);
+                    a4.setClickable(true);
+                    Ans1[0] ="false";
+                    SurveyAnswer   se =new SurveyAnswer(question, Ans1[0], Ans2[0], Ans3[0], Ans4[0],0);
+                    if (Answer.size()> finalI1){
+                        Answer.remove(finalI1);}
+
+                    Answer.add(finalI1,se);}}
+        }); a2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    Ans2[0] ="true";
+                    a1.setClickable(false);
+                    a3.setClickable(false);
+                    a4.setClickable(false);
+
+                    SurveyAnswer   se =new SurveyAnswer(question, Ans1[0], Ans2[0], Ans3[0], Ans4[0],0);
+                    if (Answer.size()> finalI1){
+                        Answer.remove(finalI1);}
+
+                    Answer.add(finalI1,se);
+                } else {
+                    a1.setClickable(true);
+                    a3.setClickable(true);
+                    a4.setClickable(true);
+                    Ans2[0] ="false";
+                    SurveyAnswer   se =new SurveyAnswer(question, Ans1[0], Ans2[0], Ans3[0], Ans4[0],0);
+                    if (Answer.size()> finalI1){
+                        Answer.remove(finalI1);}
+
+                    Answer.add(finalI1,se);}}
+        }); a3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    a1.setClickable(false);
+                    a2.setClickable(false);
+                    a4.setClickable(false);
+                    Ans3[0] ="true";
+                    SurveyAnswer   se =new SurveyAnswer(question, Ans1[0], Ans2[0], Ans3[0], Ans4[0],0);
+                    if (Answer.size()> finalI1){
+                        Answer.remove(finalI1);}
+
+                    Answer.add(finalI1,se);
+                } else {
+                    a1.setClickable(true);
+                    a2.setClickable(true);
+                    a4.setClickable(true);
+                    Ans3[0] ="false";
+                    SurveyAnswer   se =new SurveyAnswer(question, Ans1[0], Ans2[0], Ans3[0], Ans4[0],0);
+                    if (Answer.size()> finalI1){
+                        Answer.remove(finalI1);}
+
+                    Answer.add(finalI1,se);}}
+        });; a4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    a1.setClickable(false);
+                    a2.setClickable(false);
+                    a3.setClickable(false);
+                    Ans4[0] ="true";
+                    SurveyAnswer   se =new SurveyAnswer(question, Ans1[0], Ans2[0], Ans3[0], Ans4[0],0);
+                    if (Answer.size()> finalI1){
+                        Answer.remove(finalI1);}
+
+                    Answer.add(finalI1,se);
+                } else {
+                    a1.setClickable(true);
+                    a2.setClickable(true);
+                    a3.setClickable(true);
+                    Ans4[0] ="false";
+                    SurveyAnswer   se =new SurveyAnswer(question, Ans1[0], Ans2[0], Ans3[0], Ans4[0],0);
+                    if (Answer.size()> finalI1){
+                        Answer.remove(finalI1);}
+
+                    Answer.add(finalI1,se);}}
+        });
+
+
+        t.setText(Survey.get(i).getQuestion());   linearLayout.addView(v);
+
+
+
+    }
     if  (Survey.get(i).getId()==1){
         View v = inflater.inflate(R.layout.classicq, linearLayout, false);
         TextView t = v.findViewById(R.id.classicQuestion);
