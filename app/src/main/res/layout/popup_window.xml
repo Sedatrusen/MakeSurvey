@@ -11,10 +11,11 @@
         android:layout_height="wrap_content"
         android:hint="@string/survey_name"
         android:id="@+id/editsave"
-        android:background="@color/teal_700"></EditText>
-<Button
-    android:id="@+id/save"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Save"></Button>
+        android:background="@color/teal_700" />
+
+    <Button
+        android:id="@+id/save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save" />
 </LinearLayout>

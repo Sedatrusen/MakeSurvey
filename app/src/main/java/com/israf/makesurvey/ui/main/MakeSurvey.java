@@ -209,7 +209,7 @@ public class MakeSurvey extends Fragment {
                       a.add(words[0]);
                       a.add(words[2]);
                         mDatabase.child("SurveyLink").child(auth.getCurrentUser().getUid()).child(SurveyName.getText().toString()).setValue(a);
-                        Toast.makeText(v.getContext(),response,Toast.LENGTH_LONG).show();
+                        Toast.makeText(v.getContext(),"Successfully Created",Toast.LENGTH_LONG).show();
                         Log.i("sedat",response);
                     }
                 },
