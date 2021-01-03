@@ -55,18 +55,18 @@ public class Result extends AppCompatActivity {
         LinearLayout layout = (LinearLayout)findViewById(R.id.frameLayoutForFragments);
 
         SurveyName=bundle.getString("SurveyName");
-        QuestionNumber=bundle.getInt("QuestionNumber");
+
+
+
         init();
         DatabaseReference dbRef=  mDatabase.getReference("AnswerofSurveys").child(auth.getCurrentUser().getUid()).child(SurveyName);
         dbRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds:snapshot.getChildren()){
-
-
                     for (DataSnapshot ds2 :ds.getChildren()){
+                        QuestionNumber= (int) ds2.getChildrenCount();
                         for (DataSnapshot ds3:ds2.getChildren()){
-
                             SurveyAnswer surveyAnswer = ds3.getValue(SurveyAnswer.class);
                             Answers.add(surveyAnswer);
                         }
@@ -81,7 +81,8 @@ public class Result extends AppCompatActivity {
                     for ( int i= a;i<Answers.size();i=i+QuestionNumber){
                             if (Answers.get(i).getId()==1){
                                 cevaplar.get(a).setSorutipi("other");
-                                cevaplar.get(a).setanswer(Answers.get(i).getAnswer1());
+                                if (Answers.get(i).getAnswer1().length()>0){
+                                cevaplar.get(a).setanswer(Answers.get(i).getAnswer1());}
                             }else {
                                 cevaplar.get(a).setSorutipi("select");
 
@@ -160,7 +161,7 @@ for (int a=0; a<QuestionNumber;a++){
             }
         });
 
-        
+
     }
 }
 
@@ -187,7 +188,8 @@ for (int a=0; a<QuestionNumber;a++){
         toolbar= findViewById(R.id.Resulttoolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(SurveyName);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
 
 
     }

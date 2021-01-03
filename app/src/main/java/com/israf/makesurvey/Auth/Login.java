@@ -14,6 +14,8 @@ import android.widget.EditText;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.israf.makesurvey.MainActivity;
@@ -23,8 +25,9 @@ public class Login extends AppCompatActivity {
     private Toolbar toolbar;
 private EditText Mail,Password;
 Button Login;
+private TextInputLayout MailLayout,PasswordLayout;
 private FirebaseAuth auth;
-
+boolean mailcheck=false,passwordcheck=false;
 public  void init(){
         toolbar= findViewById(R.id.Logintoolbar);
         setSupportActionBar(toolbar);
@@ -39,7 +42,10 @@ public  void init(){
         init();
 
         Mail = findViewById(R.id.loginUserEmailAddress);
-        Password=findViewById(R.id.loginUserPassword);
+        MailLayout=findViewById(R.id.LoginMailLayout);
+        PasswordLayout=findViewById(R.id.LoginPasswordLayout);
+
+        Password=findViewById(R.id.LoginUserPassword);
 
         Login = findViewById(R.id.Loginbutton);
         Login.setEnabled(false);
@@ -57,18 +63,19 @@ auth.signInWithEmailAndPassword(Mail.getText().toString(),Password.getText().toS
 
         }else {
             Login.setError(task.getException().getLocalizedMessage());
-            Mail.setError(task.getException().getLocalizedMessage());
+            MailLayout.setError(task.getException().getLocalizedMessage());
         }
     }
 });
             }
         });
 
-        Mail.addTextChangedListener(loginTextWatcher);
-        Password.addTextChangedListener(loginTextWatcher);
+        Mail.addTextChangedListener(MailTextWatcher);
+        Password.addTextChangedListener(PasswordTextWatcher);
     }
 
-    private TextWatcher loginTextWatcher = new TextWatcher() {
+
+    private TextWatcher MailTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -82,19 +89,60 @@ auth.signInWithEmailAndPassword(Mail.getText().toString(),Password.getText().toS
         @Override
         public void afterTextChanged(Editable s) {
             String mail = Mail.getText().toString().trim();
-            String password = Password.getText().toString().trim();
+
             if (!mail.contains("@") && !mail.contains(".com")){
-                Mail.setError("It must be mail");
+                MailLayout.setError("It must be mail");
+                mailcheck=false;
 
+            }else {
+                mailcheck=true;
+                MailLayout.setError(null);
+            }
+            if(mailcheck && passwordcheck){
 
-            }else if (password.length()<5){
-                Password.setError("Password must be 5 or more letter");
-
-
-            } else{
                 Login.setEnabled(true);
+            }else{
+                Login.setEnabled(false);
+            }
+
+
+        }
+    };
+
+    private TextWatcher PasswordTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+            String password = Password.getText().toString().trim();
+
+
+            if (password.length()<5){
+                PasswordLayout.setError("Password must be 5 or more letter");
+                passwordcheck=false;
+
+            }else {
+                passwordcheck=true;
+                PasswordLayout.setError(null);
+            }
+            if(mailcheck && passwordcheck){
+
+                Login.setEnabled(true);
+            }else
+            {
+                Login.setEnabled(false);
             }
 
         }
     };
+
 }

@@ -7,53 +7,70 @@
     tools:context=".ui.main.Selected"
     android:orientation="vertical"
     android:padding="25dp">
-<EditText
 
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:hint="@string/Write_your_question"
-    android:id="@+id/question"
-    android:textSize="20dp"></EditText>
 
- <EditText
-     android:layout_width="match_parent"
-     android:layout_height="wrap_content"
-     android:hint="@string/write_an_answer"
-     android:id="@+id/Answer1"
-     android:textSize="14dp"></EditText>
+   <com.google.android.material.textfield.TextInputLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/write_an_answer"
-        android:id="@+id/Answer2"
-        android:textSize="14dp"></EditText>
+      <com.google.android.material.textfield.TextInputEditText
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:id="@+id/question"
+          android:hint="@string/Write_your_question" /> </com.google.android.material.textfield.TextInputLayout>
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/write_an_answer"
-        android:id="@+id/Answer3"
-        android:textSize="14dp"></EditText>
+   <com.google.android.material.textfield.TextInputLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/write_an_answer"
-        android:id="@+id/Answer4"
-        android:textSize="14dp"
-        ></EditText>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-         android:text="@string/save"
-        android:id="@+id/SaveButton"></Button>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/delete"
-        android:visibility="gone"
-        android:id="@+id/DeleteButton"></Button>
+      <com.google.android.material.textfield.TextInputEditText
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:id="@+id/Answer1"
+          android:hint="@string/write_an_answer" /> </com.google.android.material.textfield.TextInputLayout>
+
+   <com.google.android.material.textfield.TextInputLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+
+      <com.google.android.material.textfield.TextInputEditText
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:id="@+id/Answer2"
+          android:hint="@string/write_an_answer" /> </com.google.android.material.textfield.TextInputLayout>
+
+   <com.google.android.material.textfield.TextInputLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+
+      <com.google.android.material.textfield.TextInputEditText
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:id="@+id/Answer3"
+          android:hint="@string/write_an_answer" /> </com.google.android.material.textfield.TextInputLayout>
+   <com.google.android.material.textfield.TextInputLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+
+      <com.google.android.material.textfield.TextInputEditText
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:id="@+id/Answer4"
+          android:hint="@string/write_an_answer" /> </com.google.android.material.textfield.TextInputLayout>
+
+
+   <Button
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="@string/save"
+       android:id="@+id/SaveButton" />
+
+   <Button
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="@string/delete"
+       android:visibility="gone"
+       android:id="@+id/DeleteButton" />
 
 
 

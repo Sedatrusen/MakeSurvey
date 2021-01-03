@@ -4,11 +4,23 @@
 <item
     android:id="@+id/mainlogout"
     android:title="@string/log_out"
-    app:labelVisibilityMode="labeled"
+    android:orderInCategory="100"
+    android:textColor="@color/black"
 
 
-    app:showAsAction="always|withText">
+
+    >
 
 
 </item>
+    <item
+        android:id="@+id/mainuser"
+        android:title="User Setting"
+        android:orderInCategory="100"
+        android:textColor="@color/black"
+
+       >
+
+
+    </item>
 </menu>

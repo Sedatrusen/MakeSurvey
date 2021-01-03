@@ -12,7 +12,9 @@
         android:id="@+id/appBarLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/Theme.MakeSurvey.AppBarOverlay">
+        android:theme="@style/Theme.MakeSurvey.AppBarOverlay"
+
+        app:popupTheme="@style/Theme.AppCompat.Light">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -44,7 +46,7 @@
     android:layout_height="wrap_content"
     android:background="?attr/colorPrimary"
         app:tabTextColor="@color/white"
-        app:tabSelectedTextColor="@color/black"/>
+        app:tabSelectedTextColor="@color/skyBlue"/>
 
 
 

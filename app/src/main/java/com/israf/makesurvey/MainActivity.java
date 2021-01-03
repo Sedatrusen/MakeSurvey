@@ -71,6 +71,7 @@ import com.google.firebase.iid.InstanceIdResult;
 import com.israf.makesurvey.Auth.Login;
 import com.israf.makesurvey.Auth.MainPage;
 import com.israf.makesurvey.Auth.User;
+import com.israf.makesurvey.Auth.UserSetting;
 import com.israf.makesurvey.Helper.InternetDetector;
 import com.israf.makesurvey.Helper.Utils;
 import com.israf.makesurvey.ui.main.SectionsPagerAdapter;
@@ -189,6 +190,11 @@ private Toolbar toolbar;
         int id = item.getItemId();
         if (id == R.id.mainlogout) {
             logout();
+            return true;
+        }
+        if (id == R.id.mainuser) {
+            Intent intent = new Intent(this, UserSetting.class);
+            startActivity(intent);
             return true;
         }
         return super.onOptionsItemSelected(item);

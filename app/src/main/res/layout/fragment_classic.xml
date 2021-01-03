@@ -6,24 +6,31 @@
     tools:context=".ui.main.Classic"
     android:orientation="vertical"
     android:padding="25dp">
-    <EditText
 
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:hint="@string/Write_your_question"
-    android:id="@+id/classicquestion"
-    android:textSize="20dp"></EditText>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/classicquestion"
+            android:hint="@string/Write_your_question" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/save"
-        android:id="@+id/SaveButton"></Button>
+        android:id="@+id/SaveButton" />
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/delete"
         android:visibility="gone"
-        android:id="@+id/DeleteButton"></Button>
+        android:id="@+id/DeleteButton" />
 </LinearLayout>
 
 

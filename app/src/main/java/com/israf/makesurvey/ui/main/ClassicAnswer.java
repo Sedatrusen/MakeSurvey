@@ -1,5 +1,6 @@
 package com.israf.makesurvey.ui.main;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -117,7 +118,7 @@ private  AnswerString s;
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         String surveys=s.get(position);
-        View satir =layoutInflater.inflate(R.layout.classicanswerone,null);
+        @SuppressLint("ViewHolder") View satir =layoutInflater.inflate(R.layout.classicanswerone,null);
         TextView t = satir.findViewById(R.id.classicanswerone);
         t.setText(surveys);
         return satir;

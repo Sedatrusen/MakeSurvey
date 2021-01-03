@@ -31,14 +31,14 @@
         android:text="@string/add_a_questions"
         android:layout_gravity="end"
         android:layout_margin="25dp"
-           android:layout_weight="0.7"
+           android:layout_weight="1"
 
         />
 
        <Button
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
-           android:text="Save All"
+           android:text="@string/save_all"
            android:id="@+id/buttonSave"
            android:layout_weight="1" />
    </LinearLayout>
