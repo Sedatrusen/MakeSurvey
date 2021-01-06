@@ -1,9 +1,11 @@
 package com.israf.makesurvey.ui.main;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.media.audiofx.AudioEffect;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -12,13 +14,19 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.israf.makesurvey.R;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,36 +81,61 @@ public class SelectedAnswer extends Fragment {
                              Bundle savedInstanceState) {
         View v= inflater.inflate(R.layout.fragment_selected_answer, container, false);
         TextView que = v.findViewById(R.id.SelectedAnswerQuestion);
-        TextView ans1= v.findViewById(R.id.SelectedAnswer1);
-        TextView ans2= v.findViewById(R.id.SelectedAnswer2);
-        TextView ans3= v.findViewById(R.id.SelectedAnswer3);
-        TextView ans4= v.findViewById(R.id.SelectedAnswer4);
+
         que.setText(s.getQuestion());
-        ans1.setText("1-)"+s.getAnswer1());
-        ans2.setText("2-)"+s.getAnswer2());
-        ans3.setText("3-)"+s.getAnswer3());
-        ans4.setText("4-)"+s.getAnswer4());
+        String[] Questions = new String[5];
+        if (s.getAnswer1().length()>10){
+            Questions[0]=s.getAnswer1().substring(0,9)+"...";
+
+        }else {
+            Questions[0]=s.getAnswer1();
+        }
+        if (s.getAnswer2().length()>10){
+            Questions[1]=s.getAnswer2().substring(0,9)+"...";
+
+        }else {
+            Questions[1]=s.getAnswer2();
+        }
+        if (s.getAnswer3().length()>10){
+            Questions[2]=s.getAnswer3().substring(0,9)+"...";
+
+        }else {
+            Questions[2]=s.getAnswer3();
+        }
+        if (s.getAnswer4().length()>10){
+            Questions[3]=s.getAnswer4().substring(0,9)+"...";
+
+        }else {
+            Questions[3]=s.getAnswer4();
+        }
 
 
 
-
-        BarChart chart = (BarChart) v.findViewById(R.id.chart);
+        HorizontalBarChart chart =  v.findViewById(R.id.chart);
         List<BarEntry> entries = new ArrayList<>();
-        entries.add(new BarEntry(0f, a.getAns1()));
-        entries.add(new BarEntry(1f, a.getAns2()));
-        entries.add(new BarEntry(2f, a.getAns3()));
-        entries.add(new BarEntry(3f, a.getAns4()));
+        entries.add(new BarEntry(0, a.getAns1()));
+        entries.add(new BarEntry(1, a.getAns2()));
+        entries.add(new BarEntry(2, a.getAns3()));
+        entries.add(new BarEntry(3, a.getAns4()));
 
         BarDataSet set = new BarDataSet(entries, "Answers");
 
         BarData data = new BarData(set);
-        data.setBarWidth(0.9f); // set custom bar width
+
         chart.setData(data);
-        Description des = new Description();
-        des.setText("");
-        chart.setDescription(des);
+        chart.getDescription().setEnabled(false);
+        XAxis xAxis = chart.getXAxis();
+        xAxis.setGranularity(1);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setDrawGridLines(false);
+        xAxis.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                return Questions[(int) value];
+            }
+        });
         set.setColors(ColorTemplate.COLORFUL_COLORS);
-        chart.setFitBars(true); // make the x-axis fit exactly all bars
+
         chart.invalidate(); // refresh
         return v;
     }

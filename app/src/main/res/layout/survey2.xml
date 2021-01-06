@@ -1,19 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal">
+   >
+
     <TextView
         android:id="@+id/surveyname2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:layout_margin="5dp"></TextView>
+        android:textSize="20sp"
+   android:text="@string/survey_name"
+        android:layout_margin="5dp"
+        />
+
     <TextView
         android:id="@+id/number2"
+   android:text="@string/survey_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"></TextView>
+         android:layout_centerInParent="true"/>
+
+    <TextView
+        android:id="@+id/dateforanswers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/yyyy_mm_dd"
+        android:layout_alignParentEnd="true"/>
  
 
-</LinearLayout>
+</RelativeLayout>

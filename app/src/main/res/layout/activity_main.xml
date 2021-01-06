@@ -12,9 +12,7 @@
         android:id="@+id/appBarLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/Theme.MakeSurvey.AppBarOverlay"
-
-        app:popupTheme="@style/Theme.AppCompat.Light">
+        android:theme="@style/Theme.MakeSurvey.AppBarOverlay">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -28,25 +26,19 @@
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
-
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-
-
-        >
+      >
 
     </androidx.viewpager.widget.ViewPager>
 
-
     <com.google.android.material.tabs.TabLayout
-    android:id="@+id/tabs"
-
+        android:id="@+id/tabs"
         android:layout_gravity="bottom"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="?attr/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
         app:tabTextColor="@color/white"
-        app:tabSelectedTextColor="@color/skyBlue"/>
+        app:tabSelectedTextColor="@color/black"/>
 
 
 

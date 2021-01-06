@@ -188,28 +188,11 @@ for (int a=0; a<QuestionNumber;a++){
         toolbar= findViewById(R.id.Resulttoolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(SurveyName);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
 
     }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menumain,menu);
-        super.onCreateOptionsMenu(menu);
-        return true;
-
-    }
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        super.onOptionsItemSelected(item);
-        if (item.getItemId()==R.id.mainlogout)
-            auth.signOut();
-        Intent firstpage = new Intent(Result.this, MainPage.class);
-        startActivity(firstpage);
-        finish();
 
 
-        return true;
-    }
 }

@@ -3,6 +3,7 @@ package com.israf.makesurvey.ui.main;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -30,6 +32,7 @@ import java.util.ArrayList;
 public class SurveyAdapter extends BaseAdapter {
     LayoutInflater layoutInflater;
     ArrayList<Surveys> s;
+    private  SurveyDetails details;
     Context c;
 ArrayList<String> link =new ArrayList<String>();
     private DatabaseReference mDatabase= FirebaseDatabase.getInstance().getReference();
@@ -64,6 +67,7 @@ ArrayList<String> link =new ArrayList<String>();
         Button   delete = satir.findViewById(R.id.listdelete);
         Button result = satir.findViewById(R.id.ResultButton);
         Button publish = satir.findViewById(R.id.listpublishlink);
+        TextView time = satir.findViewById(R.id.Surveycreatedtimeforcreator);
 
 
         DatabaseReference dbRef=  mDatabase.child("AnswerofSurveys").child(user.getUid()).child(surveys.getName());
@@ -109,10 +113,32 @@ ArrayList<String> link =new ArrayList<String>();
         });
         isim.setText(surveys.getName());
 
+        DatabaseReference description =mDatabase.child("SurveysDetails").child(user.getUid()).child(surveys.getName());
+        description.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot ds:snapshot.getChildren()){
+
+                       details=ds.getValue(SurveyDetails.class);
+
+                }
+number.setText(details.getSurveyDescription());
+time.setText(details.getCreatedDate());
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+
+
+        });
         number.setText("Questions number: "+surveys.getQuestionnumber());
 
 
         result.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {  Bundle result = new Bundle();
                 result.putString("SurveyName",surveys.getName());
@@ -121,7 +147,8 @@ ArrayList<String> link =new ArrayList<String>();
         Intent intent =new  Intent(satir.getContext(),Result.class);
         intent.putExtras(result);
 
-             satir.getContext().startActivity(intent);
+             v.getContext().startActivity(intent);
+             v.dispatchFinishTemporaryDetach();
 
 
             }
@@ -131,10 +158,8 @@ ArrayList<String> link =new ArrayList<String>();
             public void onClick(View v) {
                 mDatabase.child("Surveys").child(surveys.getUserid()).child(surveys.getName()).removeValue();
                 mDatabase.child("SurveyLink").child(surveys.getName()).removeValue();
-                Intent intent = new Intent(satir.getContext(), MainActivity.class);
-
-                // startActivity metoduna yazdığımız intent'i veriyoruz Bu şekilde diğer activity'ye geçeceğiz.
-                satir.getContext().startActivity(intent);
+               delete.setEnabled(false);
+               delete.setText("Deleted");
             }
         });
 

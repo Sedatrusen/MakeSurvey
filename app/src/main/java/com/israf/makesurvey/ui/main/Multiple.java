@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.ItemTouchHelper;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,10 +17,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.material.slider.Slider;
 import com.israf.makesurvey.R;
 
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 
@@ -39,7 +42,7 @@ public class Multiple extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private Button SaveButton,DeleteButton;
+    private Button DeleteButton;
     private EditText Question,Answer1,Answer2,Answer3,Answer4;
     private SurveyAnswer survey;
     public Multiple() {
@@ -84,27 +87,17 @@ public class Multiple extends Fragment {
         Answer2=V.findViewById(R.id.Answer2);
         Answer3=V.findViewById(R.id.Answer3);
         Answer4=V.findViewById(R.id.Answer4);
-        SaveButton=V.findViewById(R.id.SaveButton);
+
         DeleteButton=V.findViewById(R.id.DeleteButton);
 
-        SaveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                survey=new SurveyAnswer(Question.getText().toString(),Answer1.getText().toString(),Answer2.getText().toString(),Answer3.getText().toString(),Answer4.getText().toString(),2);
-                EventBus.getDefault().postSticky(survey);
-                SaveButton.setVisibility(View.GONE);
 
 
-                DeleteButton.setVisibility(View.VISIBLE);
-            }
-        });//Anket sorusu kayıt edildi
         DeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
 
-                EventBus.getDefault().postSticky(survey);
+
                 getFragmentManager().beginTransaction().remove(Multiple.this).commit();
 
 
@@ -115,6 +108,22 @@ public class Multiple extends Fragment {
         return V;
     }
 
+    @Subscribe
+    public void onEvent(Integer s) {
+        survey=new SurveyAnswer(Question.getText().toString(),Answer1.getText().toString(),Answer2.getText().toString(),Answer3.getText().toString(),Answer4.getText().toString(),0);
+        EventBus.getDefault().post(survey);
+    }
 
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        EventBus.getDefault().unregister(this);
+    }
 
 }

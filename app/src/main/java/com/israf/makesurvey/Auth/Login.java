@@ -21,6 +21,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.israf.makesurvey.MainActivity;
 import com.israf.makesurvey.R;
 
+import java.util.Objects;
+
 public class Login extends AppCompatActivity {
     private Toolbar toolbar;
 private EditText Mail,Password;
@@ -62,7 +64,7 @@ auth.signInWithEmailAndPassword(Mail.getText().toString(),Password.getText().toS
             finish();
 
         }else {
-            Login.setError(task.getException().getLocalizedMessage());
+            Login.setError(Objects.requireNonNull(task.getException()).getLocalizedMessage());
             MailLayout.setError(task.getException().getLocalizedMessage());
         }
     }

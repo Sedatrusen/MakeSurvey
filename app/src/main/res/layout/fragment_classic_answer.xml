@@ -19,6 +19,7 @@
         android:id="@+id/clasiclistview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:smoothScrollbar="true"/>
+        android:smoothScrollbar="true"
+        android:fadeScrollbars="false"/>
 
 </LinearLayout>

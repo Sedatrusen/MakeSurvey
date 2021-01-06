@@ -13,30 +13,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/hello_blank_fragment" />
-    <TextView
-        android:id="@+id/SelectedAnswer1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_blank_fragment" />
-    <TextView
-        android:id="@+id/SelectedAnswer2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_blank_fragment" />
-    <TextView
-        android:id="@+id/SelectedAnswer3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_blank_fragment" />
-    <TextView
-        android:id="@+id/SelectedAnswer4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_blank_fragment" />
-    <com.github.mikephil.charting.charts.BarChart
+
+    <com.github.mikephil.charting.charts.HorizontalBarChart
         android:id="@+id/chart"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_margin="10dp"/>
+        android:layout_height="150sp"
+     />
 
 </LinearLayout>

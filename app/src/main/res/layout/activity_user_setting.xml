@@ -41,14 +41,7 @@
              android:hint="@string/name"
              android:id="@+id/NameEdit"/></com.google.android.material.textfield.TextInputLayout>
 
-        <Button
-            android:id="@+id/NameSave"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:text="@string/save"
 
-            />
 
 
     </LinearLayout>
@@ -75,14 +68,7 @@
                 android:hint="@string/email"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
-            android:id="@+id/EmailSave"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:text="@string/save"
 
-            />
 
 
     </LinearLayout>
@@ -134,7 +120,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:text="@string/save" />
+            android:text="@string/save_changes" />
 
     </LinearLayout>
 

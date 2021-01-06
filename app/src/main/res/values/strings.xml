@@ -109,4 +109,9 @@
 
     <string name="publish_link">Publish Link</string>
     <string name="result">Result</string>
+    <string name="add_survey_question">Add Survey Question</string>
+    <string name="survey_description">Survey Description</string>
+    <string name="lifetime_for_survey">Lifetime for Survey:</string>
+    <string name="yyyy_mm_dd">yyyy/mm/dd</string>
+    <string name="save_changes">Save Changes</string>
 </resources>

@@ -72,7 +72,7 @@ public class ForAnswerSurvey extends Fragment {
         dbRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-for (DataSnapshot ds2 : snapshot.getChildren()){
+        for (DataSnapshot ds2 : snapshot.getChildren()){
     String userid=ds2.getKey();
                 for (DataSnapshot ds:ds2.getChildren()){
                     String SurveyName= ds.getKey();
