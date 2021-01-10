@@ -148,7 +148,7 @@ private  void  PasswordSave(){
                         if (task.isSuccessful()) {
                             OldPasswordLayout.setError(null);
                             OldPasswordEdit.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_baseline_done_24, 0);
-                            updateUserEmail();
+                            updateUserPassword();
                         } else {
                             // Password is incorrect
                             OldPasswordLayout.setError(task.getException().getLocalizedMessage());
@@ -158,7 +158,7 @@ private  void  PasswordSave(){
     }
 
 }
-private void updateUserEmail(){
+private void updateUserPassword(){
     user.updatePassword(NewPasswordEdit.getText().toString())
             .addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override

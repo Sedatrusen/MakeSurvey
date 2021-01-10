@@ -3,7 +3,7 @@
     <string name="tab_text_1">Make a Survey</string>
     <string name="tab_text_2">Surveys</string>
     <string name="tab_text_3">All Surveys</string>
-    <string name="tab_text_4">Fill All</string>
+    <string name="tab_text_4">FIll All</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="add_a_questions">Add A Questions</string>
     <string name="selected">SELECTED</string>
@@ -114,4 +114,5 @@
     <string name="lifetime_for_survey">Lifetime for Survey:</string>
     <string name="yyyy_mm_dd">yyyy/mm/dd</string>
     <string name="save_changes">Save Changes</string>
+    <string name="user_setting">User Setting</string>
 </resources>

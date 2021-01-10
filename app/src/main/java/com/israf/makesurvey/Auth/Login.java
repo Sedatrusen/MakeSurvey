@@ -54,7 +54,7 @@ public  void init(){
         Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-auth.signInWithEmailAndPassword(Mail.getText().toString(),Password.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        auth.signInWithEmailAndPassword(Mail.getText().toString(),Password.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
     @Override
     public void onComplete(@NonNull Task<AuthResult> task) {
         if (task.isSuccessful()){

@@ -70,10 +70,7 @@ public class Result extends AppCompatActivity {
                             SurveyAnswer surveyAnswer = ds3.getValue(SurveyAnswer.class);
                             Answers.add(surveyAnswer);
                         }
-
                     }
-
-
                 }
 
                 for (int a = 0; a <QuestionNumber; a++){
@@ -194,5 +191,9 @@ for (int a=0; a<QuestionNumber;a++){
 
     }
 
-
+    @Override
+    protected void onStop() {
+        finish();
+        super.onStop();
+    }
 }

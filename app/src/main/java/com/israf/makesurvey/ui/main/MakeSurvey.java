@@ -125,8 +125,6 @@ public class MakeSurvey extends Fragment {
 // or ft.add(R.id.your_placeholder, new FooFragment());
 // Complete the changes added above
         ft.commit();
-
-
     }
 
     private void addMultiple() {
@@ -172,6 +170,7 @@ public class MakeSurvey extends Fragment {
         // inflate the layout of the popup window
 
         View popupView = inflater.inflate(R.layout.popup_window, null);
+
         SurveyDescriptionLayout=popupView.findViewById(R.id.SurveyDescriptionLayout);
         SurveyNameLayout=popupView.findViewById(R.id.SurveyNameLayout);
          SurveyName=popupView.findViewById(R.id.editsave);
@@ -199,19 +198,19 @@ public class MakeSurvey extends Fragment {
         save=popupView.findViewById(R.id.save);
         // create the popup window
         int width = LinearLayout.LayoutParams.MATCH_PARENT;
-        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+        int height = LinearLayout.LayoutParams.MATCH_PARENT;
         boolean focusable = true; // lets taps outside the popup also dismiss it
         final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
 
         // show the popup window
         // which view you pass in doesn't matter, it is only used for the window tolken
         popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
-
+        popupView.setHovered(true);
         save.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
-                if (SurveyName.getText().toString().length()<10 || SurveyDescription.getText().toString().length()<10){
+                if (SurveyName.getText().toString().length()<20 || SurveyDescription.getText().toString().length()<40){
                     Integer tıklama = 5;
                     EventBus.getDefault().postSticky(tıklama);
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm:ss z");
@@ -228,14 +227,14 @@ public class MakeSurvey extends Fragment {
                     startActivity(intent);
 
                 }else
-                {if (SurveyName.getText().toString().length()>=10){
+                {if (SurveyName.getText().toString().length()>=20){
                     SurveyNameLayout.setError("Maximum 20 character");
                 }else
                 {
                     SurveyNameLayout.setError(null);
 
                 }
-                    if (SurveyDescription.getText().toString().length()>=10){
+                    if (SurveyDescription.getText().toString().length()>=40){
                         SurveyDescriptionLayout.setError("Maximum 40 character");
                     }else {
                         SurveyDescriptionLayout.setError(null);
@@ -296,12 +295,8 @@ public class MakeSurvey extends Fragment {
         RetryPolicy policy = new DefaultRetryPolicy(socketTimeout,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
-
         stringRequest.setRetryPolicy(policy);
-
-
         RequestQueue requestQueue = Volley.newRequestQueue(v.getContext());
-
         requestQueue.add(stringRequest);
     }
 
