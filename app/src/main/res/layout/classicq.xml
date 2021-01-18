@@ -2,14 +2,18 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#C5C1C1"
+    android:layout_margin="5sp">
 
 
     <TextView
         android:id="@+id/classicQuestion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
+
+        android:textSize="15sp"
+
         />
 <com.google.android.material.textfield.TextInputLayout
     android:layout_width="match_parent"

@@ -3,6 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#C5C1C1"
+    android:layout_margin="5sp"
    >
 
 
@@ -10,28 +12,34 @@
         android:id="@+id/selectedQuestion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="15sp"
+
 
         />
 
     <CheckBox android:id="@+id/surveyanswer1"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
 
         />
     <CheckBox android:id="@+id/surveyanswer2"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
 
         />
     <CheckBox android:id="@+id/surveyanswer3"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text=""
 
+
         />
     <CheckBox android:id="@+id/surveyanswer4"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
 
         />
 

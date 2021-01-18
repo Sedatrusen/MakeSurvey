@@ -191,9 +191,5 @@ for (int a=0; a<QuestionNumber;a++){
 
     }
 
-    @Override
-    protected void onStop() {
-        finish();
-        super.onStop();
-    }
+
 }

@@ -72,14 +72,16 @@ public class ForAnswerSurvey extends Fragment {
         dbRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-        for (DataSnapshot ds2 : snapshot.getChildren()){
-    String userid=ds2.getKey();
-                for (DataSnapshot ds:ds2.getChildren()){
-                    String SurveyName= ds.getKey();
-                    int NumberOfQuestions= (int) ds.child("Questions").getChildrenCount();
-                    Survey.add(new Surveys(SurveyName,NumberOfQuestions,userid));
-                }}
-
+        for (DataSnapshot ds2 : snapshot.getChildren()) {
+            String userid = ds2.getKey();
+            if (!userid.equals(auth.getCurrentUser().getUid())) {
+                for (DataSnapshot ds : ds2.getChildren()) {
+                    String SurveyName = ds.getKey();
+                    int NumberOfQuestions = (int) ds.child("Questions").getChildrenCount();
+                    Survey.add(new Surveys(SurveyName, NumberOfQuestions, userid));
+                }
+            }
+        }
 
                 AnswerAdapter adapter= new AnswerAdapter(getActivity(),Survey);
                 listView.setAdapter(adapter);
