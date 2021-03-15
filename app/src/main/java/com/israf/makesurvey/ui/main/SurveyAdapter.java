@@ -98,7 +98,7 @@ ArrayList<String> link =new ArrayList<String>();
                     publish.setEnabled(true);
 
                 }
-
+//buraya bak
                 for (DataSnapshot ds :snapshot.getChildren()){
                     String a=ds.getValue(String.class);
                    link.add(a);
@@ -166,7 +166,7 @@ time.setText(details.getCreatedDate());
         publish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setClipboard(v.getContext(),link.get(1));
+                setClipboard(v.getContext(),link.get(position));
                 Toast.makeText(v.getContext(), "Copied the link", Toast.LENGTH_LONG).show();
             }
         });

@@ -76,6 +76,7 @@ public class MakeSurvey extends Fragment {
         buttonsave = V.findViewById(R.id.buttonSave);
         auth=FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        Survey = new ArrayList<SurveyAnswer>();
         buttonadd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -219,8 +220,9 @@ public class MakeSurvey extends Fragment {
                     mDatabase.child("Surveys").child(auth.getCurrentUser().getUid()).child(SurveyName.getText().toString()).child("Questions").setValue(Survey);
                     // Create new fragment and transaction
                     mDatabase.child("SurveysDetails").child(auth.getCurrentUser().getUid()).child(SurveyName.getText().toString()).child("Details").setValue(newdetails);
-                    Survey=  new ArrayList<SurveyAnswer>();
                     deneme(v);
+
+
                     Intent intent = new Intent(getContext(), MainActivity.class);
                     popupWindow.dismiss();
                     // startActivity metoduna yazdığımız intent'i veriyoruz Bu şekilde diğer activity'ye geçeceğiz.
@@ -253,7 +255,7 @@ public class MakeSurvey extends Fragment {
             }
         });
     }
-    public static final String APP_SCRIPT_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyilIt7C-JSR3unh0HLXaQU66jzFvHbRrJhttfs0l5XHtUOgF4/exec";
+    public static final String APP_SCRIPT_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxl5B6cSa4UR0y6n7bD-byFerfpJoqDhHW0djdmcccWEEMbeCY7GItA/exec";
     public static final String ADD_USER_URL = APP_SCRIPT_WEB_APP_URL;
 
     private  void  deneme (View v){
@@ -263,10 +265,10 @@ public class MakeSurvey extends Fragment {
                     @Override
                     public void onResponse(String response) {
 
-                      String[] words = response.split(" ");
+                      String words = response;
                       ArrayList<String> a=new ArrayList<>();
-                      a.add(words[0]);
-                      a.add(words[2]);
+                      a.add(words);
+
                         mDatabase.child("SurveyLink").child(auth.getCurrentUser().getUid()).child(SurveyName.getText().toString()).setValue(a); loading.dismiss();
                         Toast.makeText(v.getContext(),"Successfully Created",Toast.LENGTH_LONG).show();
                         getActivity().finish();

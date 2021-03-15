@@ -110,7 +110,7 @@ public class Multiple extends Fragment {
 
     @Subscribe
     public void onEvent(Integer s) {
-        survey=new SurveyAnswer(Question.getText().toString(),Answer1.getText().toString(),Answer2.getText().toString(),Answer3.getText().toString(),Answer4.getText().toString(),0);
+        survey=new SurveyAnswer(Question.getText().toString(),Answer1.getText().toString(),Answer2.getText().toString(),Answer3.getText().toString(),Answer4.getText().toString(),2);
         EventBus.getDefault().post(survey);
     }
 
