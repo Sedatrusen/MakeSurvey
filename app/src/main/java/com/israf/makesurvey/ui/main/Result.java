@@ -60,6 +60,7 @@ public class Result extends AppCompatActivity {
 
         init();
         DatabaseReference dbRef=  mDatabase.getReference("AnswerofSurveys").child(auth.getCurrentUser().getUid()).child(SurveyName);
+
         dbRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -69,6 +70,7 @@ public class Result extends AppCompatActivity {
                         for (DataSnapshot ds3:ds2.getChildren()){
                             SurveyAnswer surveyAnswer = ds3.getValue(SurveyAnswer.class);
                             Answers.add(surveyAnswer);
+
                         }
                     }
                 }
@@ -78,7 +80,8 @@ public class Result extends AppCompatActivity {
                     for ( int i= a;i<Answers.size();i=i+QuestionNumber){
                             if (Answers.get(i).getId()==1){
                                 cevaplar.get(a).setSorutipi("other");
-                                if (Answers.get(i).getAnswer1().length()>0){
+                                if (Answers.get(i).getAnswer1()!=null){
+
                                 cevaplar.get(a).setanswer(Answers.get(i).getAnswer1());}
                             }else {
                                 cevaplar.get(a).setSorutipi("select");
@@ -159,7 +162,7 @@ for (int a=0; a<QuestionNumber;a++){
         });
 
 
-    }
+    }dbRef.removeEventListener(this);
 }
 
 
@@ -169,7 +172,7 @@ for (int a=0; a<QuestionNumber;a++){
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-        });
+      });
 
 
 
@@ -191,5 +194,15 @@ for (int a=0; a<QuestionNumber;a++){
 
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        this.finish();
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 
 }

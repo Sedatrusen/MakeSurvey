@@ -6,10 +6,12 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -134,7 +136,7 @@ time.setText(details.getCreatedDate());
 
 
         });
-        number.setText("Questions number: "+surveys.getQuestionnumber());
+        number.setText("Questions number: "+ surveys.getQuestionnumber());
 
 
         result.setOnClickListener(new View.OnClickListener() {
@@ -157,7 +159,7 @@ time.setText(details.getCreatedDate());
             @Override
             public void onClick(View v) {
                 mDatabase.child("Surveys").child(surveys.getUserid()).child(surveys.getName()).removeValue();
-                mDatabase.child("SurveyLink").child(surveys.getName()).removeValue();
+                mDatabase.child("SurveyLink").child(surveys.getUserid()).child(surveys.getName()).removeValue();
                delete.setEnabled(false);
                delete.setText("Deleted");
             }
@@ -166,8 +168,32 @@ time.setText(details.getCreatedDate());
         publish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setClipboard(v.getContext(),link.get(position));
-                Toast.makeText(v.getContext(), "Copied the link", Toast.LENGTH_LONG).show();
+                //Creating the instance of PopupMenu
+                PopupMenu popup = new PopupMenu(v.getContext(), publish);
+                //Inflating the Popup using xml file
+                popup.getMenuInflater()
+                        .inflate(R.menu.popupmenu_link, popup.getMenu());
+
+                //registering popup with OnMenuItemClickListener
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    public boolean onMenuItemClick(MenuItem item) {
+                        if (item.getItemId() == R.id.google) {
+                            setClipboard(v.getContext(),link.get(position));
+                            Toast.makeText(v.getContext(), "Copied the link", Toast.LENGTH_LONG).show();
+                        } else if (item.getItemId() == R.id.site) {
+                            setClipboard(v.getContext(),"https://makesurvey.herokuapp.com/surveys/"+surveys.getUserid()+"/"+(surveys.getName()));
+                            Toast.makeText(v.getContext(), "Copied the link", Toast.LENGTH_LONG).show();
+                        }
+
+
+                        return true;
+                    }
+                });
+
+                popup.show(); //showing popup menu
+
+
+
             }
         });
 

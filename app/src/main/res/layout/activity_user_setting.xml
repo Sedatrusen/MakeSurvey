@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Auth.UserSetting">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout3"
@@ -28,7 +32,36 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout3"
+        android:gravity="center_horizontal"
         tools:layout_editor_absoluteX="16dp">
+     <RelativeLayout
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content">
+         <ImageView
+         android:id="@+id/update_imageView"
+         android:layout_width="match_parent"
+         android:layout_height="182dp"
+         android:gravity="center_vertical"
+         android:src="@drawable/defavatar"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toTopOf="parent"
+         android:foreground="@drawable/rounded_fg"
+         android:contentDescription="@string/profile_picture" >
+
+
+
+     </ImageView>
+
+         <ImageView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignBottom="@id/update_imageView"
+             android:layout_alignParentEnd="true"
+             android:background="@drawable/ic_plus"
+
+            />
+     </RelativeLayout>
 
      <com.google.android.material.textfield.TextInputLayout
          android:layout_width="match_parent"
@@ -41,20 +74,51 @@
              android:hint="@string/name"
              android:id="@+id/NameEdit"/></com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/BirthdayLayout"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/birthday"
+
+                android:id="@+id/BirthdayText"/></com.google.android.material.textfield.TextInputLayout>
 
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/PhoneLayout"
+            >
 
-    </LinearLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
-        app:layout_constraintVertical_bias="0.0"
-        tools:layout_editor_absoluteX="0dp">
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:id="@+id/PhoneText"
+                android:hint="@string/phone_number"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/CountryLayout"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:clickable="false"
+                android:layout_height="wrap_content"
+                android:id="@+id/CountryText"
+                android:hint="@string/country"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -71,25 +135,17 @@
 
 
 
-    </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/linearLayout4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        app:layout_constraintVertical_bias="0.0">
+
+
+
 
        <com.google.android.material.textfield.TextInputLayout
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:id="@+id/OldPasswordLayout"
-           app:passwordToggleEnabled="true">
+           app:passwordToggleEnabled="true"
+           >
 
            <com.google.android.material.textfield.TextInputEditText
                android:layout_width="match_parent"
@@ -103,7 +159,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:id="@+id/NewPasswordLayout"
             app:passwordToggleEnabled="true">
 
@@ -125,6 +181,6 @@
     </LinearLayout>
 
 
+</LinearLayout>
 
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
