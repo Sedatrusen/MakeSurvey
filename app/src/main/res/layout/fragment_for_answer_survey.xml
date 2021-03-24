@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:Android="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.main.Surveylist">
 
     <ListView
@@ -10,4 +11,25 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/AnswerListView" />
+
+    <LinearLayout
+   android:id="@+id/Answersurveyemptyfield"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+<ImageView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/survey"
+    />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/there_is_no_survey_for_you_check_later" />
+    </LinearLayout>
+
 </FrameLayout>

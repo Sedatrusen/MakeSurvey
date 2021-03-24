@@ -194,6 +194,7 @@ private Toolbar toolbar;
         }
         if (id == R.id.mainuser) {
             Intent intent = new Intent(this, UserSetting.class);
+            intent.putExtra("info",1);
             startActivity(intent);
             return true;
         }

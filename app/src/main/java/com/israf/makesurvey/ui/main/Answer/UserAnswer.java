@@ -55,7 +55,7 @@ private  String se="aa";
     private  LayoutInflater inflater;
     private  LinearLayout linearLayout;
     private DatabaseReference mDatabase2;
-
+    Button b;
 private String result;
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     private FirebaseDatabase mDatabase= FirebaseDatabase.getInstance();
@@ -72,9 +72,10 @@ private String result;
 
         View view=inflater.inflate(R.layout.fragment_user_answer, container, false);
         view.destroyDrawingCache();
-        Button b = view.findViewById(R.id.Answersave);
+        b = view.findViewById(R.id.Answersave);
         mDatabase2 = FirebaseDatabase.getInstance().getReference();
         LinearLayout linearLayout = view.findViewById(R.id.my_linear_layout);
+        b.setVisibility(View.GONE);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,6 +113,7 @@ private String result;
                                 SurveyAnswer surveyAnswer = ds2.getValue(SurveyAnswer.class);
 
                                 Survey.add(surveyAnswer);
+                                b.setVisibility(View.VISIBLE);
                             }
 
                         }

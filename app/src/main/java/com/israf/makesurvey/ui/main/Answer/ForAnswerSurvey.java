@@ -22,14 +22,17 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.israf.makesurvey.Auth.User;
 import com.israf.makesurvey.R;
 import com.israf.makesurvey.ui.main.AnswerAdapter;
 import com.israf.makesurvey.ui.main.SurveyAnswer;
+import com.israf.makesurvey.ui.main.SurveyDetails;
 import com.israf.makesurvey.ui.main.Surveys;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 
 public class ForAnswerSurvey extends Fragment {
@@ -64,11 +67,12 @@ public class ForAnswerSurvey extends Fragment {
 
 
             }});
+        listView.setEmptyView(v.findViewById(R.id.Answersurveyemptyfield));
         return v;
 
     }
     private void init(DatabaseReference dbRef) {
-
+        AnswerAdapter adapter= new AnswerAdapter(getActivity(),Survey);
         dbRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -78,13 +82,54 @@ public class ForAnswerSurvey extends Fragment {
                 for (DataSnapshot ds : ds2.getChildren()) {
                     String SurveyName = ds.getKey();
                     int NumberOfQuestions = (int) ds.child("Questions").getChildrenCount();
-                    Survey.add(new Surveys(SurveyName, NumberOfQuestions, userid));
+
+                 DatabaseReference userinforef=mDatabase.getReference("usersinfo").child(auth.getCurrentUser().getUid());
+                 userinforef.addValueEventListener(new ValueEventListener() {
+                     @Override
+                     public void onDataChange(@NonNull DataSnapshot snapshot) {
+                         User userinfo = snapshot.getValue(User.class);
+
+                         DatabaseReference surveydetailsref=mDatabase.getReference("SurveysDetails").child(userid).child(SurveyName).child("Details");
+                         surveydetailsref.addValueEventListener(new ValueEventListener() {
+                             @Override
+                             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                 SurveyDetails surveyDetails=snapshot.getValue(SurveyDetails.class);
+                                 Calendar cal = Calendar.getInstance();
+                                 int year = cal.get(Calendar.YEAR);
+                                int currentuserage = year-userinfo.getBirthyear();
+                                if (surveyDetails.getTargetages()==0) {
+
+                                    Survey.add(new Surveys(SurveyName, NumberOfQuestions, userid));
+                                    adapter.notifyDataSetChanged();
+                                }else{
+                                    if (surveyDetails.getTargetages()<=currentuserage &&currentuserage<=surveyDetails.getTargetages()+9){
+
+                                        Survey.add(new Surveys(SurveyName, NumberOfQuestions, userid));
+                                         adapter.notifyDataSetChanged();
+
+                                    }
+                                }
+
+                           }
+
+                             @Override
+                             public void onCancelled(@NonNull DatabaseError error) {
+
+                             }
+                         });
+                   }
+
+                     @Override
+                     public void onCancelled(@NonNull DatabaseError error) {
+
+                     }
+                 });
+
                 }
             }
         }
 
-                AnswerAdapter adapter= new AnswerAdapter(getActivity(),Survey);
-                listView.setAdapter(adapter);
+
                 dbRef.removeEventListener(this);
             }
 
@@ -92,4 +137,12 @@ public class ForAnswerSurvey extends Fragment {
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-        });}}
+        });
+
+
+
+
+        listView.setAdapter(adapter);
+
+
+    }}

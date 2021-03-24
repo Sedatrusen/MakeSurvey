@@ -66,6 +66,7 @@ ArrayList<String> link =new ArrayList<String>();
        View satir =layoutInflater.inflate(R.layout.survey,null);
         TextView isim = satir.findViewById(R.id.surveyname);
         TextView number= satir.findViewById(R.id.number);
+        TextView GoogleLink= satir.findViewById(R.id.Googlelink);
         Button   delete = satir.findViewById(R.id.listdelete);
         Button result = satir.findViewById(R.id.ResultButton);
         Button publish = satir.findViewById(R.id.listpublishlink);
@@ -103,7 +104,7 @@ ArrayList<String> link =new ArrayList<String>();
 //buraya bak
                 for (DataSnapshot ds :snapshot.getChildren()){
                     String a=ds.getValue(String.class);
-                   link.add(a);
+                 GoogleLink.setText(a);
                 }
 
             }
@@ -178,7 +179,7 @@ time.setText(details.getCreatedDate());
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     public boolean onMenuItemClick(MenuItem item) {
                         if (item.getItemId() == R.id.google) {
-                            setClipboard(v.getContext(),link.get(position));
+                            setClipboard(v.getContext(),GoogleLink.getText().toString());
                             Toast.makeText(v.getContext(), "Copied the link", Toast.LENGTH_LONG).show();
                         } else if (item.getItemId() == R.id.site) {
                             setClipboard(v.getContext(),"https://makesurvey.herokuapp.com/surveys/"+surveys.getUserid()+"/"+(surveys.getName()));

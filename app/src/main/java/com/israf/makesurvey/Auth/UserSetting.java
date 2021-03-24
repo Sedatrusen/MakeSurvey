@@ -45,13 +45,19 @@ import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.israf.makesurvey.Auth.img.GlideApp;
 import com.israf.makesurvey.Auth.img.ImagePickerActivity;
+import com.israf.makesurvey.MainActivity;
 import com.israf.makesurvey.R;
+import com.israf.makesurvey.ui.main.SurveyAnswer;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -74,15 +80,19 @@ import static android.content.ContentValues.TAG;
 public class UserSetting extends AppCompatActivity {
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private Toolbar toolbar;
-    private Button Save;
+    private Button Save,Next;
     private static int PICK_IMAGE = 123;
     FirebaseStorage storage = FirebaseStorage.getInstance();
-
+    private  User Currentuser;
+    private FirebaseDatabase mDatabase= FirebaseDatabase.getInstance();
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     private ImageView profileImageView;
-    private TextInputEditText  EmailEdit,NameEdit,OldPasswordEdit,NewPasswordEdit;
-   private TextInputLayout NameLayout,EmailLayout,OldPasswordLayout,NewPasswordLayout,BirthdayLayout;
+
+    private int Year,Day,Mounth,Info;
+    private TextInputEditText  EmailEdit,NameEdit,OldPasswordEdit,NewPasswordEdit,countrytext,BirthdayText,PhoneNumberEdit ;
+   private TextInputLayout NameLayout,EmailLayout,OldPasswordLayout,NewPasswordLayout,BirthdayLayout,country,PhoneNumberLayout;
     public static final int REQUEST_IMAGE = 100;
+    DatabaseReference dbRef=  mDatabase.getReference("usersinfo").child(user.getUid());
     public  void init(){
 
         toolbar= findViewById(R.id.usersettingtoolbar);
@@ -97,53 +107,182 @@ public class UserSetting extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_setting);
         init();
-        Save = findViewById(R.id.PasswordSave);
+        Bundle bundle = getIntent().getExtras();
+        Info=bundle.getInt("info");
+        Next= findViewById(R.id.Next); Save = findViewById(R.id.PasswordSave);
+        if (Info==0){
+            Next.setVisibility(View.VISIBLE);
+            Save.setVisibility(View.GONE);
+        }
+
         Save.setEnabled(false);
+
+
+
+
+dbRef.addValueEventListener(new ValueEventListener() {
+    @Override
+    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+if (snapshot.getValue()!=null) {
+    Currentuser = snapshot.getValue(User.class);
+
+
+}else{
+    Currentuser= new User();
+}
+        BirthdayEdit();
+        PhoneNumberEdit();
+        CountrEdit();
         NameEdit();
         EmailEdit();
         PasswordEdit();
+        ProfilPic();
 
-        profileImageView = findViewById(R.id.update_imageView);
-        Bitmap bitmap = null;
-        Picasso.get().load(user.getPhotoUrl()).fit().centerInside().into(profileImageView);
+        dbRef.removeEventListener(this);
+    }
 
+    @Override
+    public void onCancelled(@NonNull DatabaseError error) {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    }
 
-
-        builder.setMessage(R.string.are_u_sure)
-                .setTitle(R.string.Update_Profil_Picture);
-        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                // User clicked OK button
-               onProfileImageClick();
-            }
-        });
-        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                // User cancelled the dialog
-                dialog.dismiss();
-            }
-        });
-
-        AlertDialog dialog = builder.create();
-        profileImageView.setOnClickListener(new View.OnClickListener() {
+});
+        Save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-dialog.show();
+               if (!user.getDisplayName().equals(NameEdit.getText().toString())){
+                Namechange();}
+               if (!user.getEmail().equals(EmailEdit.getText().toString())){
+                EmailEditSave();}
 
+
+                if (OldPasswordEdit.getText().toString().trim().length() > 0) {
+                    PasswordSave();
+                }
+
+               if (Currentuser.getBirthyear()!=Year ){
+               Birthdaysave();}
+               if(!Currentuser.getPhoneNumber().equals(PhoneNumberEdit.getText().toString())){
+                   PhoneNumberSave();
+               }
+               if (!Currentuser.getCountry().equals(countrytext.getText().toString())){
+                   CountrySave();
+               }
 
             }
         });
+Next.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
 
-TextInputEditText BirthdayText=findViewById(R.id.BirthdayText);
+    
+
+            Namechange();
+
+
+            Birthdaysave();
+
+            PhoneNumberSave();
+
+
+            CountrySave();
+
+        Intent login = new Intent(UserSetting.this, MainActivity.class);
+
+        startActivity(login);
+
+    }
+});
+
+    }
+
+    private void  PhoneNumberSave(){
+        Currentuser.setPhoneNumber(PhoneNumberEdit.getText().toString());
+        dbRef.setValue(Currentuser);
+        PhoneNumberEdit.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_baseline_done_24, 0);
+
+    }
+    private void PhoneNumberEdit(){
+        PhoneNumberEdit=findViewById(R.id.PhoneText);
+
+        PhoneNumberEdit.setText(Currentuser.getPhoneNumber());
+    PhoneNumberEdit.addTextChangedListener(SaveTextWatcher);
+    }
+private void CountrySave(){
+
+        Currentuser.setCountry(countrytext.getText().toString());
+        dbRef.setValue(Currentuser);
+    countrytext.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_baseline_done_24, 0);
+}
+
+    private  void  CountrEdit(){
+
+       country = findViewById(R.id.CountryLayout);
+
+         countrytext = findViewById(R.id.CountryText);
+        countrytext.setKeyListener(null);
+if (Currentuser!=null) {
+    countrytext.setText(Currentuser.getCountry());
+}
+        countrytext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CountryPicker picker = CountryPicker.newInstance("Select Country");  // dialog title
+                picker.setListener(new CountryPickerListener() {
+                    @Override
+                    public void onSelectCountry(String name, String code, String dialCode, int flagDrawableResID) {
+
+                        countrytext.setText(name);
+                        picker.dismiss();
+                    }
+                });
+                picker.show(getSupportFragmentManager(), "COUNTRY_PICKER");
+
+            }
+        });
+countrytext.addTextChangedListener(SaveTextWatcher);
+    }
+
+private  void Birthdaysave(){
+    Currentuser.setBirthday(Day);
+    Currentuser.setBirthmonth(Mounth);
+    Currentuser.setBirthyear(Year);
+    dbRef.setValue(Currentuser).addOnCompleteListener(new OnCompleteListener<Void>() {
+        @Override
+        public void onComplete(@NonNull Task<Void> task) {
+            BirthdayText.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_baseline_done_24, 0);
+        }
+    });
+
+
+}
+    private  void BirthdayEdit(){
+
+      BirthdayText=findViewById(R.id.BirthdayText);
+        BirthdayText.setKeyListener(null);
+if (Currentuser!=null) {
+    String date = Currentuser.getBirthday() + "/" + Currentuser.getBirthmonth() + "/" + Currentuser.getBirthyear();
+    BirthdayText.setText(date);
+}
         BirthdayText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Calendar cal = Calendar.getInstance();
-                int year = cal.get(Calendar.YEAR);
-                int month = cal.get(Calendar.MONTH);
-                int day = cal.get(Calendar.DAY_OF_MONTH);
+                int year ;
+                int month ;
+                int day ;
+                if (Currentuser.getBirthyear()!=0){
+                    year = Currentuser.getBirthyear();
+                    month = Currentuser.getBirthmonth();
+                    day = Currentuser.getBirthday();
+                }else{
+                    Calendar cal = Calendar.getInstance();
+                   year = cal.get(Calendar.YEAR);
+                    month = cal.get(Calendar.MONTH);
+                     day = cal.get(Calendar.DAY_OF_MONTH);
+                }
+
+
 
                 DatePickerDialog dialog = new DatePickerDialog(
                         UserSetting.this,
@@ -160,50 +299,53 @@ TextInputEditText BirthdayText=findViewById(R.id.BirthdayText);
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month = month + 1;
                 Log.d(TAG, "onDateSet: mm/dd/yyy: " + month + "/" + day + "/" + year);
-
+                Year=year;
+                Day=day;
+                Mounth=month;
                 String date = day + "/" + month+ "/" + year;
                 BirthdayText.setText(date);
             }
         };
-
-
-        Save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Namechange();
-                EmailEditSave();
-                if (OldPasswordEdit.getText().toString().trim().length() > 0) {
-                    PasswordSave();
-                }
-
-            }
-        });
-
-        TextInputLayout country = findViewById(R.id.CountryLayout);
-
-        TextInputEditText countrytext = findViewById(R.id.CountryText);
-countrytext.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        CountryPicker picker = CountryPicker.newInstance("Select Country");  // dialog title
-        picker.setListener(new CountryPickerListener() {
-            @Override
-            public void onSelectCountry(String name, String code, String dialCode, int flagDrawableResID) {
-
-                countrytext.setText(name);
-                picker.dismiss();
-            }
-        });
-        picker.show(getSupportFragmentManager(), "COUNTRY_PICKER");
-
-    }
-});
-
+        BirthdayText.addTextChangedListener(SaveTextWatcher);
 
     }
 
+private void ProfilPic(){
+    profileImageView = findViewById(R.id.update_imageView);
+    Bitmap bitmap = null;
+   if (!(user.getPhotoUrl() ==null)) {
+       Picasso.get().load(user.getPhotoUrl()).fit().centerInside().into(profileImageView);
+   }
 
+    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+
+    builder.setMessage(R.string.are_u_sure)
+            .setTitle(R.string.Update_Profil_Picture);
+    builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+        public void onClick(DialogInterface dialog, int id) {
+            // User clicked OK button
+            onProfileImageClick();
+        }
+    });
+    builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+        public void onClick(DialogInterface dialog, int id) {
+            // User cancelled the dialog
+            dialog.dismiss();
+        }
+    });
+
+    AlertDialog dialog = builder.create();
+    profileImageView.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            dialog.show();
+
+
+        }
+    });
+
+}
 
 
 
@@ -242,7 +384,10 @@ private  void EmailEdit(){
         EmailEdit.setText(user.getEmail());
 
          EmailEdit.addTextChangedListener(SaveTextWatcher);
+    if (Info==0){
+        EmailLayout.setVisibility(View.GONE);
 
+    }
 
 }
 private void EmailEditSave(){
@@ -266,7 +411,10 @@ private  void PasswordEdit(){
         OldPasswordLayout=findViewById(R.id.OldPasswordLayout);
         NewPasswordEdit=findViewById(R.id.NewEditPassword);
         NewPasswordLayout=findViewById(R.id.NewPasswordLayout);
-
+if (Info==0){
+    OldPasswordLayout.setVisibility(View.GONE);
+    NewPasswordLayout.setVisibility(View.GONE);
+}
         OldPasswordEdit.addTextChangedListener(SaveTextWatcher);
 }
 private  void  PasswordSave(){
@@ -317,18 +465,27 @@ private void updateUserPassword(){
     private TextWatcher SaveTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            Save.setEnabled(true);
 
         }
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
+            Save.setEnabled(true);
+
 
         }
 
         @Override
         public void afterTextChanged(Editable s) {
 Save.setEnabled(true);
-
+            BirthdayText.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+           OldPasswordEdit.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+           NameEdit.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+            countrytext.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+            PhoneNumberEdit.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+            NewPasswordEdit.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+            EmailEdit.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
         }
     };
 

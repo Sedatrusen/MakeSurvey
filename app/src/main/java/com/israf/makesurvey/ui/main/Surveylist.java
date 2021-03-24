@@ -39,23 +39,28 @@ private FirebaseDatabase mDatabase= FirebaseDatabase.getInstance();
        listView=v.findViewById(R.id.SurveyListView);
        final DatabaseReference dbRef=mDatabase.getReference("Surveys").child(auth.getCurrentUser().getUid());
         init( dbRef);
+        listView.setEmptyView(v.findViewById(R.id.surveyemptyfield));
 return v;
     }
     private void init(DatabaseReference dbRef) {
 
         dbRef.addValueEventListener(new ValueEventListener() {
+
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Survey=new ArrayList<Surveys>();
+                SurveyAdapter adapter= new SurveyAdapter(getActivity(),Survey);
                 String userid=snapshot.getKey();
                 for (DataSnapshot ds:snapshot.getChildren()){
                     String SurveyName= ds.getKey();
                    int NumberOfQuestions= (int) ds.child("Questions").getChildrenCount();
                     Survey.add(new Surveys(SurveyName,NumberOfQuestions,userid));
+                   adapter.notifyDataSetChanged();
                 }
-                SurveyAdapter adapter= new SurveyAdapter(getActivity(),Survey);
+
                 listView.setAdapter(adapter);
 
-                dbRef.removeEventListener(this);
+
             }
 
             @Override

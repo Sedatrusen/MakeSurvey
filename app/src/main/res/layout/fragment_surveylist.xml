@@ -12,4 +12,23 @@
        android:id="@+id/SurveyListView"
        android:layout_width="match_parent"
        android:layout_height="match_parent" />
+   <LinearLayout
+       android:id="@+id/surveyemptyfield"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:gravity="center"
+       android:orientation="vertical">
+      <ImageView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:src="@drawable/survey"
+          />
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:gravity="center"
+          android:text="@string/you_dont_have_any_survey_n_you_can_create_one_from_makesurvey_screen" />
+   </LinearLayout>
 </FrameLayout>

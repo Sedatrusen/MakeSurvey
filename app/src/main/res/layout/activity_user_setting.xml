@@ -22,6 +22,7 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/usersettingtoolbar"
             android:layout_width="match_parent"
+
             android:layout_height="match_parent" />
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -177,6 +178,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:text="@string/save_changes" />
+        <Button
+            android:id="@+id/Next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:visibility="gone"
+            android:text="@string/next" />
 
     </LinearLayout>
 

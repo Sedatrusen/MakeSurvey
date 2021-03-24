@@ -1,8 +1,12 @@
 package com.israf.makesurvey.ui.main;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -37,6 +41,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -65,7 +70,8 @@ public class MakeSurvey extends Fragment {
     private String[] SurveyLifetime = { "One Day","One Week", "One Month", "One Year"};
     private String secilen="One Day";
     private Spinner SurveyLifeTime;
-    private TextInputLayout SurveyNameLayout,SurveyDescriptionLayout;
+    private TextInputLayout SurveyNameLayout,SurveyDescriptionLayout,ageslayout;
+    private TextInputEditText ages;
 
 
     @Override
@@ -110,12 +116,22 @@ public class MakeSurvey extends Fragment {
             @Override
             public void onClick(View v) {
 
-              onButtonShowPopupWindowClick(inflater ,V);
-             //mDatabase.child("Survey").child("Questions").setValue(Survey);
 
+
+                if (!getChildFragmentManager().getFragments().isEmpty()) {
+
+                    onButtonShowPopupWindowClick(inflater, V);
+
+                }else
+                {
+                    Toast.makeText(v.getContext(),"There is no questions",Toast.LENGTH_LONG).show();
+                }
             }
         });
+
         return V;
+
+
     }
 
     private  FragmentTransaction ft;
@@ -166,6 +182,23 @@ public class MakeSurvey extends Fragment {
         super.onDetach();
         EventBus.getDefault().unregister(this);
     }
+
+int Targetage;
+    public void agegroupdialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        Resources res = getResources();
+        String[] planets = res.getStringArray(R.array.string_age_group);
+        int[] agearray={15,25,35,45,55};
+        builder.setTitle(R.string.target_ages)
+                .setItems(R.array.string_age_group, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                 ages.setText(planets[which]);
+                 Targetage=agearray[which];
+                    }
+                });
+         builder.create();
+         builder.show();
+    }
     public void onButtonShowPopupWindowClick(LayoutInflater inflater ,View view) {
 
         // inflate the layout of the popup window
@@ -174,7 +207,9 @@ public class MakeSurvey extends Fragment {
 
         SurveyDescriptionLayout=popupView.findViewById(R.id.SurveyDescriptionLayout);
         SurveyNameLayout=popupView.findViewById(R.id.SurveyNameLayout);
-         SurveyName=popupView.findViewById(R.id.editsave);
+        ages=popupView.findViewById(R.id.AgegroupText);
+        ageslayout=popupView.findViewById(R.id.AgegroupLayout);
+        SurveyName=popupView.findViewById(R.id.editsave);
          SurveyDescription=popupView.findViewById(R.id.SurveyDescription);
          SurveyLifeTime=popupView.findViewById(R.id.SurveyDateSpinner);
         SurveyLifeTime.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -195,6 +230,13 @@ public class MakeSurvey extends Fragment {
         //Setting the ArrayAdapter data on the Spinner
         SurveyLifeTime.setAdapter(aa);
 
+        ages.setKeyListener(null);
+        ages.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                agegroupdialog();
+            }
+        });
 
         save=popupView.findViewById(R.id.save);
         // create the popup window
@@ -214,18 +256,19 @@ public class MakeSurvey extends Fragment {
                 if (SurveyName.getText().toString().length()<20 || SurveyDescription.getText().toString().length()<40){
                     Integer tıklama = 5;
                     EventBus.getDefault().postSticky(tıklama);
+
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm:ss z");
                     String currentDateandTime = sdf.format(new Date());
-                    SurveyDetails newdetails= new SurveyDetails(SurveyName.getText().toString(),SurveyDescription.getText().toString(),secilen,currentDateandTime.substring(0,11));
+                    SurveyDetails newdetails= new SurveyDetails(SurveyName.getText().toString(),SurveyDescription.getText().toString(),secilen,currentDateandTime.substring(0,11),Targetage);
                     mDatabase.child("Surveys").child(auth.getCurrentUser().getUid()).child(SurveyName.getText().toString()).child("Questions").setValue(Survey);
-                    // Create new fragment and transaction
+
                     mDatabase.child("SurveysDetails").child(auth.getCurrentUser().getUid()).child(SurveyName.getText().toString()).child("Details").setValue(newdetails);
                     deneme(v);
 
 
                     Intent intent = new Intent(getContext(), MainActivity.class);
                     popupWindow.dismiss();
-                    // startActivity metoduna yazdığımız intent'i veriyoruz Bu şekilde diğer activity'ye geçeceğiz.
+
                     startActivity(intent);
 
                 }else
@@ -255,6 +298,8 @@ public class MakeSurvey extends Fragment {
             }
         });
     }
+
+    //Google link
     public static final String APP_SCRIPT_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxl5B6cSa4UR0y6n7bD-byFerfpJoqDhHW0djdmcccWEEMbeCY7GItA/exec";
     public static final String ADD_USER_URL = APP_SCRIPT_WEB_APP_URL;
 

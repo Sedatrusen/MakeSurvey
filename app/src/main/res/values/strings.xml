@@ -150,4 +150,20 @@
     <string name="dialog_permission_title">Grant Permissions</string>
     <string name="dialog_permission_message">This app needs permission to use this feature. You can grant them in app settings.</string>
     <string name="go_to_settings">GOTO SETTINGS</string>
+    <string name="target_ages">Target age</string>
+    <string name="there_is_no_survey_for_you_check_later">There is no survey for you.Check later</string>
+    <string name="you_dont_have_any_survey_n_you_can_create_one_from_makesurvey_screen">You dont have any survey.\n You can create one from Makesurvey screen</string>
+    <string-array
+        name="string_age_group">
+        <item
+            >15–24 </item>
+        <item
+            >25–34 </item>
+        <item
+            >35–44 </item>
+        <item
+            >45–54</item>
+        <item
+            >55+</item>
+    </string-array>
 </resources>

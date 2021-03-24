@@ -21,6 +21,7 @@
             android:id="@+id/result_tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:tabGravity="fill"
             android:background="?attr/colorPrimary"
             app:tabTextColor="@color/purple_500"
             app:tabSelectedTextColor="@color/purple_200"

@@ -18,6 +18,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.israf.makesurvey.R;
 
 public class Register extends AppCompatActivity {
@@ -53,7 +55,12 @@ register.setEnabled(false);
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
                             MailLayout.setError(null);
-                            Intent login = new Intent(Register.this,Login.class);
+                          User  Currentuser= new User();
+                            FirebaseDatabase mDatabase= FirebaseDatabase.getInstance();
+                            DatabaseReference dbRef=  mDatabase.getReference("usersinfo").child(auth.getCurrentUser().getUid());
+                            dbRef.setValue(Currentuser);
+                            Intent login = new Intent(Register.this,UserSetting.class);
+                            login.putExtra("info",0);
                             startActivity(login);
                             finish();
                         }else {

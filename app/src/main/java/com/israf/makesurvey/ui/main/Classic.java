@@ -89,7 +89,7 @@ public class Classic extends Fragment {
 
 
 
-                getFragmentManager().beginTransaction().remove(Classic.this).commit();
+                getParentFragmentManager().beginTransaction().remove(Classic.this).commit();
 
 
             }//Anket sorusu silinir
